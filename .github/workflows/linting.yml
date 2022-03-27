@@ -98,12 +98,14 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --lib --all-features -- -D warnings
+          name: library
 
       - name: Run 'cargo clippy'
         uses: actions-rs/clippy-check@v1.0.7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --bin themis --all-features -- -D warnings
+          name: binary
 
   cargo_doc:
     name: Run 'cargo doc'
