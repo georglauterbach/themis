@@ -1,0 +1,118 @@
+---
+name: Linting
+
+on: # yamllint disable-line rule:truthy
+  workflow_dispatch:
+  push:
+    branches: ['**']
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  lint_all:
+    name: Lint against GitHub's Super-Linter
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.0.0
+        with:
+          submodules: true
+
+      - name: Lint code base
+        uses: github/super-linter@v4.9.0
+        env:
+          LOG_LEVEL: NOTICE
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SUPPRESS_POSSUM: true
+          VALIDATE_ALL_CODEBASE: true
+
+          ERROR_ON_MISSING_EXEC_BIT: true
+          VALIDATE_BASH: true
+          VALIDATE_BASH_EXEC: true
+          VALIDATE_EDITORCONFIG: true
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_JSON: true
+          VALIDATE_MARKDOWN: true
+          VALIDATE_YAML: true
+
+  cargo_check:
+    name: Cargo check
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.0.0
+
+      - name: Install nightly toolchain
+        uses: actions-rs/toolchain@v1.0.7
+        with:
+          profile: minimal
+          toolchain: nightly
+          override: true
+
+      - uses: actions-rs/cargo@v1.0.1
+        with:
+          command: check
+
+  cargo_format:
+    name: Cargo format
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.0.0
+
+      - name: Install nightly toolchain
+        uses: actions-rs/toolchain@v1.0.7
+        with:
+          profile: minimal
+          toolchain: nightly
+          override: true
+
+      - name: Install 'rustfmt'
+        run: rustup component add rustfmt
+
+      - name: Run `cargo fmt`
+        uses: actions-rs/cargo@v1.0.1
+        with:
+          command: fmt
+          args: --all --message-format human -- --check
+
+  clippy:
+    name: Run 'clippy'
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.0.0
+
+      - uses: actions-rs/toolchain@v1.0.1
+        with:
+          toolchain: stable
+          components: clippy
+          override: true
+
+      - name: Run 'cargo clippy'
+        uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --all-features -- -D warnings
+  
+  documentation:
+    name: Cargo format
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.0.0
+
+      - name: Install nightly toolchain
+        uses: actions-rs/toolchain@v1.0.7
+        with:
+          profile: minimal
+          toolchain: nightly
+          override: true
+
+      - name: Run `cargo doc`
+        uses: actions-rs/cargo@v1.0.1
+        with:
+          command: doc
+          args: --document-private-items
