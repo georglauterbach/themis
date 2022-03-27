@@ -16,9 +16,6 @@ defaults:
   run:
     shell: bash
 
-env:
-  RUST_TOOLCHAIN: nightly
-
 jobs:
   unit-and-integration-tests:
     name: Run all unit- and integration-tests
@@ -58,4 +55,5 @@ jobs:
       - name: Run 'cargo test'
         uses: actions-rs/cargo@v1.0.1
         with:
-          command: check
+          command: test
+          args: --tests

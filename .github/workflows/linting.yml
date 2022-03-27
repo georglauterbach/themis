@@ -79,7 +79,7 @@ jobs:
           command: fmt
           args: --all --message-format human -- --check
 
-  clippy:
+  cargo_clippy:
     name: Run 'cargo clippy'
     runs-on: ubuntu-20.04
     steps:
@@ -97,9 +97,15 @@ jobs:
         uses: actions-rs/clippy-check@v1.0.7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --all-features -- -D warnings
+          args: --lib --all-features -- -D warnings
 
-  documentation:
+      - name: Run 'cargo clippy'
+        uses: actions-rs/clippy-check@v1.0.7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --bin themis --all-features -- -D warnings
+
+  cargo_doc:
     name: Run 'cargo doc'
     runs-on: ubuntu-20.04
     steps:
@@ -117,4 +123,4 @@ jobs:
         uses: actions-rs/cargo@v1.0.1
         with:
           command: doc
-          args: --document-private-items
+          args: --lib --document-private-items

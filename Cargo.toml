@@ -1,8 +1,72 @@
-[package]
-name = "themis"
-version = "0.1.0"
-edition = "2021"
+# -----------------------------------------------
+# ----  Package  --------------------------------
+# -----------------------------------------------
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[package]
+name = 'themis'
+version = '0.1.0-alpha1-pre'
+edition = '2021'
+
+authors = ['Georg Lauterbach (@georglauterbach)']
+
+description = 'A template for high-quality, clean Rust code'
+documentation = 'https://github.com/georglauterbach/themis'
+license = 'GPL-3.0'
+readme = '../README.md'
+
+homepage = 'https://github.com/georglauterbach/themis'
+repository = 'https://github.com/georglauterbach/themis'
+
+keywords = [
+  'template',
+  'high quality',
+]
+
+categories = [
+  'config',
+]
+
+publish = false
+
+# Cargo's auto-detection of library files is turned on. Therefore,
+# `src/lib.rs` is automatically detected by Cargo as a freestanding
+# library. We need to define some code segments twice, here as well
+# as an in `src/main.rs` as this file is tested by Cargo separately.
+# This file can then be used in integration tests as well.
+autobenches = true
+autobins = true
+autoexamples = true
+autotests = true
+
+# -----------------------------------------------
+# ----  Profiles  -------------------------------
+# -----------------------------------------------
+
+[profile.release]
+codegen-units = 1
+incremental = true
+lto = true
+overflow-checks = true
+
+[profile.dev]
+lto = false
+
+# -----------------------------------------------
+# ----  General Dependencies  -------------------
+# -----------------------------------------------
 
 [dependencies]
+clap = '3.1.6'
+
+# -----------------------------------------------
+# ----  Workspace  ------------------------------
+# -----------------------------------------------
+
+[workspace]
+
+# -----------------------------------------------
+# ----  Tests  ----------------------------------
+# -----------------------------------------------
+
+[[test]]
+name = 'default'

@@ -5,9 +5,10 @@
 # https://rust-lang.github.io/rustup-components-history/
 
 # Make sure to propagate version and component changes here to
-# `.github/workflows/kernel_tests.yml` and to
+# `.github/workflows/tests.yml` and to
+# `.github/workflows/linting.yml` and to
 # `.github/workflows/security.yml`!
 
 [toolchain]
-channel = "nightly-2022-02-12"
-components = [ "cargo", "rustc", "rustfmt", "rust-std" ]
+channel = 'nightly-2022-03-27'
+components = [ 'cargo', 'rustc', 'rustfmt', 'rust-std', 'clippy' ]
