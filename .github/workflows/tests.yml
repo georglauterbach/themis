@@ -1,5 +1,5 @@
 ---
-name: Kernel Code Tests
+name: Tests
 
 on: # yamllint disable-line rule:truthy
   workflow_dispatch:
@@ -52,7 +52,7 @@ jobs:
 
       - name: Generate the test result and coverage report
         run: |
-          cargo install cargo2junit grcov
+          cargo install cargo2junit grcov rust-covfix
           cargo test -- -Z unstable-options --format json | cargo2junit >results.xml
           zip -0 ccov.zip "$(find . \( -name "${PROJECT_NAME_UNDERSCORE}*.gc*" \) -print)"
 
