@@ -28,7 +28,7 @@ jobs:
         uses: actions-rs/toolchain@v1.0.7
         with:
           profile: minimal
-          toolchain: nightly
+          toolchain: nightly-2022-03-27
           override: true
 
       - name: Cache dependencies
@@ -46,10 +46,10 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Cargo.lock') }}
 
       - name: Install nightly toolchain
-        uses: actions-rs/@v1.0.7
+        uses: actions-rs/toolchain@v1.0.7
         with:
           profile: minimal
-          toolchain: stable
+          toolchain: nightly-2022-03-27
           override: true
 
       - name: Run 'cargo test'

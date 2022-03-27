@@ -48,7 +48,7 @@ jobs:
         uses: actions-rs/toolchain@v1.0.7
         with:
           profile: minimal
-          toolchain: stable
+          toolchain: nightly-2022-03-27
           override: true
 
       - name: Run 'cargo check'
@@ -67,7 +67,7 @@ jobs:
         uses: actions-rs/toolchain@v1.0.7
         with:
           profile: minimal
-          toolchain: stable
+          toolchain: nightly-2022-03-27
           override: true
 
       - name: Install 'rustfmt'
@@ -89,7 +89,7 @@ jobs:
       - uses: actions-rs/toolchain@v1.0.1
         with:
           profile: minimal
-          toolchain: stable
+          toolchain: nightly-2022-03-27
           components: clippy
           override: true
 
@@ -116,7 +116,7 @@ jobs:
         uses: actions-rs/toolchain@v1.0.7
         with:
           profile: minimal
-          toolchain: stable
+          toolchain: nightly-2022-03-27
           override: true
 
       - name: Run 'cargo doc'
