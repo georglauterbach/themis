@@ -16,15 +16,13 @@ defaults:
   run:
     shell: bash
 
+env:
+  RUST_TOOLCHAIN: nightly
+
 jobs:
   unit-and-integration-tests:
     name: Run all unit- and integration-tests
     runs-on: ubuntu-20.04
-
-    env:
-      PROJECT_NAME_UNDERSCORE: themis
-      CARGO_INCREMENTAL: 0
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3.0.0
@@ -50,33 +48,14 @@ jobs:
             target
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Cargo.lock') }}
 
-      - name: Generate the test result and coverage report
-        run: |
-          cargo install cargo2junit grcov rust-covfix
-          cargo test -- -Z unstable-options --format json | cargo2junit >results.xml
-          zip -0 ccov.zip "$(find . \( -name "${PROJECT_NAME_UNDERSCORE}*.gc*" \) -print)"
-
-          grcov ccov.zip -s .     \
-            -t lcov               \
-            --llvm                \
-            --ignore-not-existing \
-            --ignore "/*"         \
-            --ignore "tests/*"    \
-            -o coverage.info
-
-      - name: Upload test results
-        uses: EnricoMi/publish-unit-test-result-action@v1.31
+      - name: Install nightly toolchain
+        uses: actions-rs/@v1.0.7
         with:
-          check_name: Test Results
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: results.xml
+          profile: minimal
+          toolchain: stable
+          override: true
 
-      - name: Upload to CodeCov
-        uses: codecov/codecov-action@v2.1.0
+      - name: Run 'cargo test'
+        uses: actions-rs/cargo@v1.0.1
         with:
-          # required for private repositories:
-          # token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage.info
-          flags: unittests
-          fail_ci_if_error: true
-          verbose: false
+          command: check

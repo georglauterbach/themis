@@ -23,13 +23,7 @@ documentation/site
 # ----  Kernel ----------------------------------
 # -----------------------------------------------
 
-kernel/out/
-kernel/target/
+target/
 
-kernel/**/Cargo.lock
-kernel/**/*.rs.bk
-
-
-# Added by cargo
-
-/target
+**/Cargo.lock
+**/*.rs.bk
