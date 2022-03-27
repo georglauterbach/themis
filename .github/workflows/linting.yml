@@ -79,7 +79,7 @@ jobs:
           args: --all --message-format human -- --check
 
   clippy:
-    name: Run 'clippy'
+    name: Run Clippy
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
@@ -98,7 +98,7 @@ jobs:
           args: --all-features -- -D warnings
   
   documentation:
-    name: Cargo format
+    name: Check documentation
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code

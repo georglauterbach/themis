@@ -14,7 +14,6 @@ on: # yamllint disable-line rule:truthy
 defaults:
   run:
     shell: bash
-    working-directory: kernel
 
 jobs:
   cargo-audit:
