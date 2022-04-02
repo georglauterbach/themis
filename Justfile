@@ -30,8 +30,8 @@ help:
 	{{CARGO}} build {{arguments}}
 
 # run the kernel in QEMU
-run *arguments: (build arguments)
-	{{CARGO}} run {{arguments}}
+@run *arguments: (build '--quiet')
+	{{CARGO}} run --quiet {{arguments}}
 
 # remove the kernel/target/ directory
 @clean:

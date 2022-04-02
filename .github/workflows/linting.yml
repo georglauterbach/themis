@@ -3,7 +3,8 @@ name: Linting
 
 on: # yamllint disable-line rule:truthy
   workflow_dispatch:
-  push:
+  pull_request:
+    paths: [.github/workflows/linting.yml]
     branches: ['**']
 
 defaults:
@@ -36,85 +37,3 @@ jobs:
           VALIDATE_JSON: true
           VALIDATE_MARKDOWN: true
           VALIDATE_YAML: true
-
-  cargo_check:
-    name: Run 'cargo check'
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3.0.0
-
-      - name: Install nightly toolchain
-        uses: actions-rs/toolchain@v1.0.7
-        with:
-          profile: minimal
-          toolchain: nightly-2022-03-27
-          override: true
-
-      - name: Run 'cargo check'
-        uses: actions-rs/cargo@v1.0.1
-        with:
-          command: check
-
-  cargo_format:
-    name: Run 'cargo fmt'
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3.0.0
-
-      - name: Install nightly toolchain
-        uses: actions-rs/toolchain@v1.0.7
-        with:
-          profile: minimal
-          toolchain: nightly-2022-03-27
-          override: true
-
-      - name: Install 'rustfmt'
-        run: rustup component add rustfmt
-
-      - name: Run 'cargo fmt'
-        uses: actions-rs/cargo@v1.0.1
-        with:
-          command: fmt
-          args: --all --message-format human -- --check
-
-  cargo_clippy:
-    name: Run 'cargo clippy'
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3.0.0
-
-      - uses: actions-rs/toolchain@v1.0.1
-        with:
-          profile: minimal
-          toolchain: nightly-2022-03-27
-          components: clippy
-          override: true
-
-      - name: Run 'cargo clippy'
-        uses: actions-rs/clippy-check@v1.0.7
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: --bin themis --lib --all-features -- -D warnings
-
-  cargo_doc:
-    name: Run 'cargo doc'
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3.0.0
-
-      - name: Install nightly toolchain
-        uses: actions-rs/toolchain@v1.0.7
-        with:
-          profile: minimal
-          toolchain: nightly-2022-03-27
-          override: true
-
-      - name: Run 'cargo doc'
-        uses: actions-rs/cargo@v1.0.1
-        with:
-          command: doc
-          args: --lib --document-private-items
