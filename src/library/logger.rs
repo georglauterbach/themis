@@ -1,10 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use chrono::{
-	Datelike,
-	Timelike,
-};
-
 /// ### The Global Logger
 ///
 /// This static variable is used by the [`log`] crate for logging all messages.
@@ -65,7 +60,7 @@ impl Logger
 		};
 
 		let mut stdout = StandardStream::stdout(color_choice);
-		let date_time = chrono::prelude::Local::now();
+		let date_time = time::OffsetDateTime::now_local()?;
 
 		stdout.set_color(ColorSpec::new().set_fg(Some(color)))?;
 		write!(&mut stdout, "{:>9}  ", log_level)?;
@@ -74,8 +69,8 @@ impl Logger
 			&mut stdout,
 			"{:02}/{:02}/{:02} {:02}:{:02}:{:02}",
 			date_time.day(),
-			date_time.month(),
-			date_time.year_ce().1,
+			date_time.month() as u8,
+			date_time.year(),
 			date_time.hour(),
 			date_time.minute(),
 			date_time.second(),
