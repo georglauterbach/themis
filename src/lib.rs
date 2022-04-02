@@ -39,4 +39,7 @@
 /// re-exported modules with `use themis::<RE-EXPORTED MODULE>`.
 mod library;
 
-pub use library::arguments;
+pub use library::{
+	arguments,
+	logger,
+};

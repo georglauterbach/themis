@@ -31,11 +31,17 @@
 //! Others should be able to copy from this repository and have a look at
 //! best-practices when it comes to CI/CD and Rust.
 
+use themis::arguments;
+
 /// ### `main`
 ///
 /// A simple, plain old `main` function. Nothing mysterious here.
 fn main()
 {
-	// let x = 2 % 1;
-	println!("Hello, Zeus!");
+	use clap::Parser;
+
+	let arguments = arguments::Arguments::parse();
+	themis::logger::initialize(arguments.parse_log_level());
+
+	log::info!("Welcome to Themis");
 }
