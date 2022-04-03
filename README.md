@@ -11,7 +11,7 @@ _Themis_ is a template repository for _Rust_ projects that aspire **high code qu
 By using this template, you get the following features
 
 1. Functioning CI/CD pipeline for [GitHub Actions], including unit- and integration tests, linting, general formatting, [Dependabot] and security audits.
-2. Complete Rust setup, including toolchain setup, `rustfmt` configuration and a pre-filles `Cargo.toml`
+2. Complete Rust setup, including toolchain setup, `rustfmt` configuration and a pre-filled `Cargo.toml`
 3. A dual library-binary crate with log and CLI arguments setup
 4. General formatting guidelines set by `.editorconfig`, `.prettierrc` and `.rustfmt.toml`
 5. Proper setup for shell scripts and git (including `.gitattributes` and a `.gitignore`)
