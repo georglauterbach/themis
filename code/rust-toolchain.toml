@@ -10,5 +10,5 @@
 # 3. `.github/workflows/tests.yml`
 
 [toolchain]
-channel = 'nightly-2022-03-27'
+channel = 'nightly-2022-05-28'
 components = [ 'cargo', 'clippy', 'rustc', 'rustfmt', 'rust-std' ]

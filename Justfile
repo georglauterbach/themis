@@ -7,7 +7,7 @@ set shell             := [ "bash", "-eu", "-o", "pipefail", "-c" ]
 set dotenv-load       := false
 
 export ROOT_DIRECTORY := justfile_directory()
-CARGO                 := 'cargo'
+CARGO                 := 'cd code && cargo'
 
 # show a dedicated help message
 help:
