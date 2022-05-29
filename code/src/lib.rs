@@ -27,9 +27,7 @@
 
 //! # _yourprojectname_
 //!
-//! _yourprojectname_ provides a starting port for clean, high-quality Rust code.
-//! Others should be able to copy from this repository and have a look at
-//! best-practices when it comes to CI/CD and Rust.
+//! TODO
 
 /// ## The Application Library
 ///
