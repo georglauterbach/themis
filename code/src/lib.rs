@@ -26,8 +26,6 @@
 #![deny(missing_debug_implementations)]
 
 //! # _yourprojectname_
-//!
-//! TODO
 
 /// ## The Application Library
 ///
@@ -39,5 +37,6 @@ mod library;
 
 pub use library::{
 	arguments,
+	ffi,
 	logger,
 };

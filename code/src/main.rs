@@ -26,8 +26,6 @@
 #![deny(missing_debug_implementations)]
 
 //! # _yourprojectname_
-//!
-//! TODO
 
 use yourprojectname::arguments;
 
@@ -42,4 +40,5 @@ fn main()
 	yourprojectname::logger::initialize(arguments.parse_log_level());
 
 	log::info!("Welcome to yourprojectname");
+	yourprojectname::ffi::call_from_ffi_safe();
 }
