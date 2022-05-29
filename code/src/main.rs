@@ -25,13 +25,13 @@
 // covered previously
 #![deny(missing_debug_implementations)]
 
-//! # _Themis_
+//! # _yourprojectname_
 //!
-//! _Themis_ provides a starting port for clean, high-quality Rust code.
+//! _yourprojectname_ provides a starting port for clean, high-quality Rust code.
 //! Others should be able to copy from this repository and have a look at
 //! best-practices when it comes to CI/CD and Rust.
 
-use themis::arguments;
+use yourprojectname::arguments;
 
 /// ### `main`
 ///
@@ -41,7 +41,7 @@ fn main()
 	use clap::Parser;
 
 	let arguments = arguments::Arguments::parse();
-	themis::logger::initialize(arguments.parse_log_level());
+	yourprojectname::logger::initialize(arguments.parse_log_level());
 
-	log::info!("Welcome to Themis");
+	log::info!("Welcome to yourprojectname");
 }

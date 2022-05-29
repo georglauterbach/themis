@@ -41,7 +41,7 @@ help:
 @check *arguments: format
 	{{CARGO}} check
 	{{CARGO}} clippy --lib --all-features -- -D warnings
-	{{CARGO}} clippy --bin themis --all-features -- -D warnings
+	{{CARGO}} clippy --bin yourprojectname --all-features -- -D warnings
 	{{CARGO}} doc
 
 # run tests workspace members

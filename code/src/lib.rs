@@ -25,9 +25,9 @@
 // covered previously
 #![deny(missing_debug_implementations)]
 
-//! # _Themis_
+//! # _yourprojectname_
 //!
-//! _Themis_ provides a starting port for clean, high-quality Rust code.
+//! _yourprojectname_ provides a starting port for clean, high-quality Rust code.
 //! Others should be able to copy from this repository and have a look at
 //! best-practices when it comes to CI/CD and Rust.
 
@@ -36,7 +36,7 @@
 /// While `lib.rs` is automatically identified by `cargo` to be a library, we crate the
 /// directory `library` to organize our actual library. It is important that `library` is
 /// owned by `lib.rs` (`mod library;`), and not by `main.rs`. This way, `main.rs` can call
-/// re-exported modules with `use themis::<RE-EXPORTED MODULE>`.
+/// re-exported modules with `use yourprojectname::<RE-EXPORTED MODULE>`.
 mod library;
 
 pub use library::{

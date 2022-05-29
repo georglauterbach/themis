@@ -6,7 +6,7 @@
 #[allow(missing_docs)]
 #[allow(clippy::missing_docs_in_private_items)]
 #[derive(clap::Parser, Debug)]
-#[clap(author, version, about, name = "Themis")]
+#[clap(author, version, about, name = "yourprojectname")]
 pub struct Arguments
 {
 	#[clap(flatten)]

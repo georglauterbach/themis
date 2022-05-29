@@ -3,19 +3,19 @@
 # -----------------------------------------------
 
 [package]
-name = 'themis'
-version = '0.1.0-alpha1-pre'
+name = 'yourprojectname'
+version = '0.1.0'
 edition = '2021'
 
 authors = ['Georg Lauterbach (@georglauterbach)']
 
-description = 'A template for high-quality, clean Rust code'
-documentation = 'https://github.com/georglauterbach/themis'
+description = ''
+documentation = ''
 license = 'GPL-3.0'
 readme = '../README.md'
 
-homepage = 'https://github.com/georglauterbach/themis'
-repository = 'https://github.com/georglauterbach/themis'
+homepage = ''
+repository = ''
 
 keywords = [
   'template',
