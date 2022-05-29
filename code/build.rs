@@ -7,11 +7,21 @@
 /// suffix (the file extension) and the `lib` prefix.
 const FFI_LIBRARY_NAME: &str = "ffi";
 
+/// ### The Header File to Create Bindings From
+///
+/// This header file is used to create all Rust bindings.
+const FFI_HEADER_FILE: &str = "src/ffi.hh";
+
 /// ### Base Directory
 ///
 /// This is the directory that one can use to create absolute paths. It is the exact
 /// directory the `Cargo.toml` file is located in.
 const CARGO_MANIFEST_DIRECTORY: &str = env!("CARGO_MANIFEST_DIR");
+
+/// ### The Directory Root for the FFI Code
+///
+/// Contains the directory name of the root in which FFI code resides.
+const FFI_CODE_DIRECTORY: &str = const_format::concatcp!(CARGO_MANIFEST_DIRECTORY, "/src/ffi/");
 
 /// ### The `bindgen` Output
 ///
@@ -20,15 +30,11 @@ const CARGO_MANIFEST_DIRECTORY: &str = env!("CARGO_MANIFEST_DIR");
 /// code.
 const BINDINGS_FILE_NAME: &str = "bindings.rs";
 
-/// ### The Header File to Create Bindings From
+/// ### The Generated Rust Bindings
 ///
-/// This header file is used to create all Rust bindings.
-const FFI_HEADER_FILE: &str = "src/ffi.hh";
-
-/// ### The Directory Root for the FFI Code
-///
-/// Contains the directory name of the root in which FFI code resides.
-const FFI_CODE_DIRECTORY: &str = const_format::concatcp!(CARGO_MANIFEST_DIRECTORY, "/src/ffi/");
+/// Contains the location of the Rust bindings created by `bindgen` from the C/C++ code.
+const BINDINGS_FILE_LOCATION: &str =
+	const_format::concatcp!(FFI_CODE_DIRECTORY, "/build/", BINDINGS_FILE_NAME);
 
 /// ### The Builder Function
 ///
@@ -39,9 +45,6 @@ const FFI_CODE_DIRECTORY: &str = const_format::concatcp!(CARGO_MANIFEST_DIRECTOR
 /// 3. add the static library to the arguments for the linker
 fn main() -> Result<(), Box<dyn std::error::Error>>
 {
-	// miscellaneous variable setup
-	let bindings_file = std::path::PathBuf::from(std::env::var("OUT_DIR")?).join(BINDINGS_FILE_NAME);
-
 	// add information about then to re-compile
 	println!("cargo:rerun-if-changed={}", FFI_CODE_DIRECTORY);
 	println!("cargo:rerun-if-changed=build.rs");
@@ -61,7 +64,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
 		.parse_callbacks(Box::new(bindgen::CargoCallbacks))
 		.generate()
 		.expect("Could not create Rust bindings from C++ FFI header file")
-		.write_to_file(bindings_file)?;
+		.write_to_file(BINDINGS_FILE_LOCATION)?;
 
 	// add path and name information about the (static) library that is to be linked
 	println!("cargo:rustc-link-lib=static={}", FFI_LIBRARY_NAME);

@@ -9,5 +9,5 @@ pub fn call_from_ffi_safe() { unsafe { ffi_local::call_from_ffi() }; }
 /// non-public module so we can "wrap" the `unsafe` FFI calls in safe wrappers.
 mod ffi_local
 {
-	include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+	include!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/ffi/build/bindings.rs"));
 }
