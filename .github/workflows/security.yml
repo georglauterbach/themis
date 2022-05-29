@@ -15,6 +15,9 @@ defaults:
   run:
     shell: bash
 
+env:
+  RUST_TOOLCHAIN: nightly-2022-05-28
+
 jobs:
   cargo-audit:
     name: Audit Cargo.lock
@@ -27,7 +30,7 @@ jobs:
         uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
-          toolchain: nightly-2022-03-27
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
           override: true
 
       - name: Install 'cargo audit'

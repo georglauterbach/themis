@@ -16,6 +16,9 @@ defaults:
   run:
     shell: bash
 
+env:
+  RUST_TOOLCHAIN: nightly-2022-05-28
+
 jobs:
   unit-and-integration-tests:
     name: Run all unit- and integration-tests
@@ -28,7 +31,7 @@ jobs:
         uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
-          toolchain: nightly-2022-03-27
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
           override: true
 
       - name: Cache dependencies
@@ -49,7 +52,7 @@ jobs:
         uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
-          toolchain: nightly-2022-03-27
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
           override: true
 
       - name: Run 'cargo test'

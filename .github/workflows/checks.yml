@@ -13,6 +13,9 @@ defaults:
   run:
     shell: bash
 
+env:
+  RUST_TOOLCHAIN: nightly-2022-05-28
+
 jobs:
   cargo_check:
     name: Run 'cargo check'
@@ -25,7 +28,7 @@ jobs:
         uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
-          toolchain: nightly-2022-03-27
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
           override: true
 
       - name: Run 'cargo check'
@@ -44,7 +47,7 @@ jobs:
         uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
-          toolchain: nightly-2022-03-27
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
           override: true
 
       - name: Install 'rustfmt'
@@ -66,7 +69,7 @@ jobs:
       - uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
-          toolchain: nightly-2022-03-27
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
           components: clippy
           override: true
 
@@ -74,7 +77,7 @@ jobs:
         uses: actions-rs/clippy-check@v1.0.7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --bin themis --lib --all-features -- -D warnings
+          args: --bin yourprojectname --lib --all-features -- -D warnings
 
   cargo_doc:
     name: Run 'cargo doc'
