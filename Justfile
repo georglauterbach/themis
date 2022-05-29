@@ -36,6 +36,7 @@ help:
 # remove the kernel/target/ directory
 @clean:
 	{{CARGO}} clean
+	cd code/src/ffi/ && make clean
 
 # lint against rustfmt and clippy
 @check *arguments: format
