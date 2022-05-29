@@ -16,13 +16,19 @@ const CARGO_MANIFEST_DIRECTORY: &str = env!("CARGO_MANIFEST_DIR");
 /// ### The `bindgen` Output
 ///
 /// These are the Rust bindings that we use for calls on the FFI. It is used with the
-/// `include!` macro.
+/// `include!` macro. When changing this name, make sure to also change it in the source
+/// code.
 const BINDINGS_FILE_NAME: &str = "bindings.rs";
 
 /// ### The Header File to Create Bindings From
 ///
 /// This header file is used to create all Rust bindings.
 const FFI_HEADER_FILE: &str = "src/ffi.hh";
+
+/// ### The Directory Root for the FFI Code
+///
+/// Contains the directory name of the root in which FFI code resides.
+const FFI_CODE_DIRECTORY: &str = const_format::concatcp!(CARGO_MANIFEST_DIRECTORY, "/src/ffi/");
 
 /// ### The Builder Function
 ///
@@ -34,16 +40,15 @@ const FFI_HEADER_FILE: &str = "src/ffi.hh";
 fn main() -> Result<(), Box<dyn std::error::Error>>
 {
 	// miscellaneous variable setup
-	let ffi_code_directory = CARGO_MANIFEST_DIRECTORY.to_string() + "/src/ffi/";
 	let bindings_file = std::path::PathBuf::from(std::env::var("OUT_DIR")?).join(BINDINGS_FILE_NAME);
 
 	// add information about then to re-compile
-	println!("cargo:rerun-if-changed={}", ffi_code_directory);
+	println!("cargo:rerun-if-changed={}", FFI_CODE_DIRECTORY);
 	println!("cargo:rerun-if-changed=build.rs");
 
 	// build all FFI files
 	if !std::process::Command::new("make")
-		.current_dir(&ffi_code_directory)
+		.current_dir(&FFI_CODE_DIRECTORY)
 		.status()?
 		.success()
 	{
@@ -52,7 +57,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
 
 	// create Rust bindings from C(++) sources
 	bindgen::Builder::default()
-		.header(ffi_code_directory.clone() + FFI_HEADER_FILE)
+		.header(format!("{}{}", FFI_CODE_DIRECTORY, FFI_HEADER_FILE))
 		.parse_callbacks(Box::new(bindgen::CargoCallbacks))
 		.generate()
 		.expect("Could not create Rust bindings from C++ FFI header file")
@@ -62,12 +67,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>>
 	println!("cargo:rustc-link-lib=static={}", FFI_LIBRARY_NAME);
 	println!(
 		"cargo:rustc-link-search={}",
-		format_args!("{}/{}/", ffi_code_directory, "build")
+		format_args!("{}/{}/", FFI_CODE_DIRECTORY, "build")
 	);
 
 	// ? if you use the C++ standard library, you need to provide
-	// ? the C++ shared standard library to the `rustc` linker,
-	// ? otherwise, these function calls cannot be resolved
+	// ? the C++ shared standard library to the `rustc` linker
+	// ? (which is the system linker `ld`). Otherwise, these
+	// ? function calls cannot be resolved.
 	println!("cargo:rustc-link-lib=stdc++");
 
 	Ok(())
