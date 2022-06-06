@@ -39,15 +39,17 @@ help:
 	cd code/src/ffi/ && make clean
 
 # lint against rustfmt and clippy
-@check *arguments: format
+@check: format
 	{{CARGO}} check
 	{{CARGO}} clippy --lib --all-features -- -D warnings
 	{{CARGO}} clippy --bin yourprojectname --all-features -- -D warnings
+	{{CARGO}} fmt --check --message-format human
 	{{CARGO}} doc
 
 # run tests workspace members
 @test *arguments:
 	{{CARGO}} test {{arguments}}
+	{{CARGO}} miri test {{arguments}}
 
 # -----------------------------------------------
 # ----  Format and Lint  ------------------------

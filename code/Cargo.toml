@@ -43,13 +43,31 @@ autotests = true
 # -----------------------------------------------
 
 [profile.release]
+opt-level = 3
 codegen-units = 1
-incremental = true
 lto = true
-overflow-checks = true
+
+incremental = false
+
+debug = false
+debug-assertions = false
+overflow-checks = false
+strip = "none"
 
 [profile.dev]
+opt-level = 0
 lto = false
+
+incremental = true
+
+debug = true
+debug-assertions = true
+overflow-checks = true
+strip = false
+
+
+[profile.release.build-override]
+inherits = "release"
 
 # -----------------------------------------------
 # ----  Dependencies  ---------------------------
