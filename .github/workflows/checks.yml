@@ -16,6 +16,10 @@ defaults:
 env:
   RUST_TOOLCHAIN: nightly-2022-05-28
 
+permissions:
+  checks: write
+  pull-requests: write
+
 jobs:
   cargo_check:
     name: General Check
@@ -95,5 +99,6 @@ jobs:
           toolchain: nightly-2022-03-27
 
       - name: Run 'cargo doc'
-        run: code code
+        run: |
+          cd code
           cargo doc --no-deps --message-format=json | cargo-action-fmt
