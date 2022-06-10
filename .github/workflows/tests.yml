@@ -1,5 +1,5 @@
 ---
-name: Tests
+name: Unit & Integration Tests
 
 on: # yamllint disable-line rule:truthy
   workflow_dispatch:
@@ -21,7 +21,7 @@ env:
 
 jobs:
   unit-and-integration-tests:
-    name: Run unit & integration tests
+    name: Run All Tests
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
