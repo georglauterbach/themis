@@ -15,7 +15,6 @@ on: # yamllint disable-line rule:truthy
 defaults:
   run:
     shell: bash
-    working-directory: code
 
 env:
   RUST_TOOLCHAIN: nightly-2022-05-28
@@ -35,29 +34,15 @@ jobs:
           toolchain: ${{ env.RUST_TOOLCHAIN }}
           override: true
 
-      - name: Cache dependencies
-        uses: actions/cache@v3.0.0
-        env:
-          cache-name: cache-dependencies
-        with:
-          path: |
-            ~/.cargo/.crates.toml
-            ~/.cargo/.crates2.json
-            ~/.cargo/bin
-            ~/.cargo/registry/index
-            ~/.cargo/registry/cache
-            target
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Cargo.lock') }}
-
-      - name: Install nightly toolchain
-        uses: actions-rs/toolchain@v1.0.6
-        with:
-          profile: minimal
-          toolchain: ${{ env.RUST_TOOLCHAIN }}
-          override: true
-
       - name: Run 'cargo test'
-        uses: actions-rs/cargo@v1.0.1
+        run: |
+          cd code
+          cargo test -- -Z unstable-options --format json --report-time \
+            | cargo2junit >results.xml
+      
+      - name: Upload test results
+        uses: EnricoMi/publish-unit-test-result-action@v1.37
+        if: always()
         with:
-          command: test
-          args: --tests
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: code/results.xml
