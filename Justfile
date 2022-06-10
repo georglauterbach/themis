@@ -73,7 +73,7 @@ alias fmt := format
 
 # build the code documentation with Cargo 
 @documentation arguments='':
-	cargo doc --lib --document-private-items {{arguments}}
+	{{CARGO}} doc --no-deps --lib --document-private-items {{arguments}}
 
 alias doc := documentation
 alias docs := documentation

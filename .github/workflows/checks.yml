@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Install GitHub CI annotations formatter
-        uses: olix0r/cargo-action-fmt@release/v1.0.0
+        uses: olix0r/cargo-action-fmt@bf5a88a011c80288df07b34194f3f0abdb4b8f7d
 
       - name: Checkout code
         uses: actions/checkout@v3.0.0
@@ -53,17 +53,16 @@ jobs:
           components: rustfmt
 
       - name: Run 'cargo fmt'
-        uses: actions-rs/cargo@v1.0.1
-        with:
-          command: fmt
-          args: --all --message-format human -- --check
+        run: |
+          cd code
+          cargo fmt --all --message-format human -- --check
 
   cargo_clippy:
     name: Clippy
     runs-on: ubuntu-20.04
     steps:
       - name: Install GitHub CI annotations formatter
-        uses: olix0r/cargo-action-fmt@release/v1.0.0
+        uses: olix0r/cargo-action-fmt@bf5a88a011c80288df07b34194f3f0abdb4b8f7d
 
       - name: Checkout code
         uses: actions/checkout@v3.0.0
@@ -84,7 +83,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Install GitHub CI annotations formatter
-        uses: olix0r/cargo-action-fmt@release/v1.0.0
+        uses: olix0r/cargo-action-fmt@bf5a88a011c80288df07b34194f3f0abdb4b8f7d
 
       - name: Checkout code
         uses: actions/checkout@v3.0.0
