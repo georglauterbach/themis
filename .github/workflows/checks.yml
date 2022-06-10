@@ -85,7 +85,7 @@ jobs:
           cd code
           && cargo clippy --quiet --message-format=json
           | cargo-action-fmt
-          | sed 's|src/|code/src/|g'
+          | sed -E 's|(src/)|code/\1|g'
 
   cargo_doc:
     name: Documentation Check
@@ -108,4 +108,4 @@ jobs:
           cd code
           && cargo doc --no-deps --message-format=json
           | cargo-action-fmt
-          | sed 's|src/|code/src/|g'
+          | sed -E 's|(src/)|code/\1|g'
