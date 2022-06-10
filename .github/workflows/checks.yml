@@ -29,10 +29,10 @@ jobs:
         with:
           profile: minimal
           toolchain: ${{ env.RUST_TOOLCHAIN }}
-      
+
       - name: Install GitHub CI annotations formatter
-        uses: olix0r/cargo-action-fmt@v1.0.1
-      
+        uses: olix0r/cargo-action-fmt@release/v1.0.0
+
       - name: Run `cargo fmt`
         run: |
           cd code
@@ -71,6 +71,9 @@ jobs:
           toolchain: ${{ env.RUST_TOOLCHAIN }}
           components: clippy
 
+      - name: Install GitHub CI annotations formatter
+        uses: olix0r/cargo-action-fmt@release/v1.0.0
+
       - name: Run Clippy
         run: |
           cd code
@@ -89,7 +92,9 @@ jobs:
           profile: minimal
           toolchain: nightly-2022-03-27
 
+      - name: Install GitHub CI annotations formatter
+        uses: olix0r/cargo-action-fmt@release/v1.0.0
+
       - name: Run 'cargo doc'
-        run:
-          code code
+        run: code code
           cargo doc --no-deps --message-format=json | cargo-action-fmt
