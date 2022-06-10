@@ -52,3 +52,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           files: code/results.xml
           check_name: Upload Test Results
+          comment_title: Unit & Integration Test Results
