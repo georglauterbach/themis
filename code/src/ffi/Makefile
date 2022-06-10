@@ -17,7 +17,7 @@ DEPFILES  := $(patsubst $(OUTDIR)%.o,$(DEPDIR)%.d,$(OBJFILES))
 
 __CFLAGS  := -m64 -Wall -Wextra -pedantic -fPIC -I $(SRCDIR)
 CFLAGS    := $(CFLAGS) $(__CFLAGS) -std=c17
-CXXFLAGS  := $(CXXFLAGS) $(__CFLAGS) -std=c++20
+CXXFLAGS  := $(CXXFLAGS) $(__CFLAGS) -std=c++17
 DEPFLAGS   = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 
 # COMMON TARGETS

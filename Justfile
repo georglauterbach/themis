@@ -41,10 +41,12 @@ help:
 # lint against rustfmt and clippy
 @check: format
 	{{CARGO}} check
-	{{CARGO}} clippy --lib --all-features -- -D warnings
-	{{CARGO}} clippy --bin yourprojectname --all-features -- -D warnings
 	{{CARGO}} fmt --check --message-format human
 	{{CARGO}} doc
+
+@rslint: format
+	{{CARGO}} clippy --lib --all-features -- -D warnings
+	{{CARGO}} clippy --bin yourprojectname --all-features -- -D warnings
 
 # run tests workspace members
 @test *arguments:
@@ -71,7 +73,7 @@ alias fmt := format
 
 # build the code documentation with Cargo 
 @documentation arguments='':
-	cargo doc --lib --document-private-items {{arguments}}
+	{{CARGO}} doc --no-deps --lib --document-private-items {{arguments}}
 
 alias doc := documentation
 alias docs := documentation

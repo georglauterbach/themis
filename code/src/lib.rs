@@ -41,3 +41,9 @@ pub use library::{
 	ffi,
 	logger,
 };
+
+#[test]
+fn sanity_check()
+{
+	assert_eq!(1, 1);
+}
