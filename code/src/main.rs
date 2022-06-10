@@ -42,8 +42,4 @@ fn main()
 
 	log::info!("Welcome to yourprojectname");
 	yourprojectname::ffi::call_from_ffi_safe();
-
-	let mut i = 1;
-	i = i % 1;
-	println!("{}", i);
 }
