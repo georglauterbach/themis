@@ -29,12 +29,14 @@ jobs:
         with:
           profile: minimal
           toolchain: ${{ env.RUST_TOOLCHAIN }}
-          override: true
       
-      - name: Run 'cargo check'
-        uses: actions-rs/cargo@v1.0.1
-        with:
-          command: check
+      - name: Install GitHub CI annotations formatter
+        uses: olix0r/cargo-action-fmt@v1.0.1
+      
+      - name: Run `cargo fmt`
+        run: |
+          cd code
+          cargo check --quiet --message-format=json | cargo-action-fmt
 
   cargo_format:
     name: Format Check
@@ -49,7 +51,6 @@ jobs:
           profile: minimal
           toolchain: ${{ env.RUST_TOOLCHAIN }}
           components: rustfmt
-          override: true
 
       - name: Run 'cargo fmt'
         uses: actions-rs/cargo@v1.0.1
@@ -69,16 +70,11 @@ jobs:
           profile: minimal
           toolchain: ${{ env.RUST_TOOLCHAIN }}
           components: clippy
-          override: true
-      
-      - name: Test cd
-        run: cd code/
 
-      - name: Run 'cargo clippy'
-        uses: actions-rs/clippy-check@v1.0.7
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: --bin yourprojectname --lib --all-features -- -D warnings
+      - name: Run Clippy
+        run: |
+          cd code
+          cargo clippy --quiet --message-format=json | cargo-action-fmt
 
   cargo_doc:
     name: Documentation Check
@@ -92,10 +88,8 @@ jobs:
         with:
           profile: minimal
           toolchain: nightly-2022-03-27
-          override: true
 
       - name: Run 'cargo doc'
-        uses: actions-rs/cargo@v1.0.1
-        with:
-          command: doc
-          args: --lib --document-private-items
+        run:
+          code code
+          cargo doc --no-deps --message-format=json | cargo-action-fmt
