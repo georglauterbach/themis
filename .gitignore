@@ -23,8 +23,7 @@ documentation/site
 # ----  Build Artifacts -------------------------
 # -----------------------------------------------
 
-**/build/
-**/target/
-
-**/Cargo.lock
-**/*.rs.bk
+code/build/
+code/target/
+code/Cargo.lock
+code/**/*.rs.bk
