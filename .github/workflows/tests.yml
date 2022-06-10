@@ -15,6 +15,7 @@ on: # yamllint disable-line rule:truthy
 defaults:
   run:
     shell: bash
+    working-directory: code
 
 env:
   RUST_TOOLCHAIN: nightly-2022-05-28

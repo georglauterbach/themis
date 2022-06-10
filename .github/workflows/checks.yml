@@ -6,12 +6,13 @@ on: # yamllint disable-line rule:truthy
   pull_request:
     paths:
       - .github/workflows/checks.yml
-      - src/**
+      - code/src/**
     branches: ['**']
 
 defaults:
   run:
     shell: bash
+    working-directory: code
 
 env:
   RUST_TOOLCHAIN: nightly-2022-05-28
