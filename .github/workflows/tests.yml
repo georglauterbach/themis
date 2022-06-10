@@ -6,10 +6,10 @@ on: # yamllint disable-line rule:truthy
   pull_request:
     paths:
       - .github/workflows/tests.yml
-      - src/**
+      - code/src/**
     branches: ['**']
   push:
-    paths: [src/**]
+    paths: [code/src/**]
     branches: [master]
 
 defaults:
