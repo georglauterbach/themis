@@ -31,7 +31,7 @@ jobs:
           toolchain: ${{ env.RUST_TOOLCHAIN }}
           override: true
       
-      - run: cd  ${{ inputs.working_directory }}/code/
+      - run: cd code/
 
       - name: Run 'cargo check'
         uses: actions-rs/cargo@v1.0.1
@@ -55,7 +55,7 @@ jobs:
       - name: Install 'rustfmt'
         run: rustup component add rustfmt
 
-      - run: cd  ${{ inputs.working_directory }}/code/
+      - run: cd code/
 
       - name: Run 'cargo fmt'
         uses: actions-rs/cargo@v1.0.1
@@ -78,7 +78,7 @@ jobs:
           override: true
       
       - name: Test cd
-        run: cd  ${{ inputs.working_directory }}/code/
+        run: cd code/
 
       - name: Run 'cargo clippy'
         uses: actions-rs/clippy-check@v1.0.7
@@ -100,7 +100,7 @@ jobs:
           toolchain: nightly-2022-03-27
           override: true
       
-      - run: cd  ${{ inputs.working_directory }}/code/
+      - run: cd code/
 
       - name: Run 'cargo doc'
         uses: actions-rs/cargo@v1.0.1
