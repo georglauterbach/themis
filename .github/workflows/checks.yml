@@ -12,7 +12,6 @@ on: # yamllint disable-line rule:truthy
 defaults:
   run:
     shell: bash
-    working-directory: code
 
 env:
   RUST_TOOLCHAIN: nightly-2022-05-28
@@ -78,7 +77,8 @@ jobs:
           components: clippy
           override: true
       
-      - run: cd  ${{ inputs.working_directory }}/code/
+      - name: Test cd
+        run: cd  ${{ inputs.working_directory }}/code/
 
       - name: Run 'cargo clippy'
         uses: actions-rs/clippy-check@v1.0.7
