@@ -39,7 +39,11 @@ jobs:
           toolchain: ${{ env.RUST_TOOLCHAIN }}
 
       - name: Run `cargo fmt`
-        run: cd code && cargo check --quiet --message-format=json | cargo-action-fmt | sed 's|src/|code/src/|g'
+        run: >
+          cd code
+          && cargo check --quiet --message-format=json
+          | cargo-action-fmt
+          | sed -E 's|(src/)|code/\1|g'
 
   cargo_format:
     name: Format Check
@@ -56,7 +60,9 @@ jobs:
           components: rustfmt
 
       - name: Run 'cargo fmt'
-        run: cd code && cargo fmt --all --message-format human -- --check
+        run: >
+          cd code
+          && cargo fmt --all --message-format human -- --check
 
   cargo_clippy:
     name: Clippy
@@ -75,7 +81,11 @@ jobs:
           components: clippy
 
       - name: Run Clippy
-        run: cd code && cargo clippy --quiet --message-format=json | cargo-action-fmt | sed 's|src/|code/src/|g'
+        run: >
+          cd code
+          && cargo clippy --quiet --message-format=json
+          | cargo-action-fmt
+          | sed 's|src/|code/src/|g'
 
   cargo_doc:
     name: Documentation Check
@@ -94,4 +104,8 @@ jobs:
           toolchain: nightly-2022-03-27
 
       - name: Run 'cargo doc'
-        run: cd code && cargo doc --no-deps --message-format=json | cargo-action-fmt | sed 's|src/|code/src/|g'
+        run: >
+          cd code
+          && cargo doc --no-deps --message-format=json
+          | cargo-action-fmt
+          | sed 's|src/|code/src/|g'
