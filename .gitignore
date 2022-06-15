@@ -27,3 +27,4 @@ code/build/
 code/target/
 code/Cargo.lock
 code/**/*.rs.bk
+code/src/ffi/build/
