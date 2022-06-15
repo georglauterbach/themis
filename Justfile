@@ -9,6 +9,8 @@ set dotenv-load       := false
 export ROOT_DIRECTORY := justfile_directory()
 CARGO                 := 'cd code && cargo'
 
+default *arguments: (build arguments)
+
 # show a dedicated help message
 help:
 	#! /bin/bash

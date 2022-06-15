@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+// Forbing `unsafe` code in `main.rs` completely.
+#![forbid(unsafe_code)]
 // Clippy lint target one. Enables all lints that are on by
-// default (correctness, suspicious, style, complexity, perf) .
+// default (correctness, suspicious, style, complexity, perf).
 #![deny(clippy::all)]
 // Clippy lint target two. Enables lints which are rather strict
 // or have occasional false positives.
@@ -29,14 +31,13 @@
 //! # _yourprojectname_
 
 use yourprojectname::arguments;
+use clap::Parser;
 
 /// ### `main`
 ///
 /// A simple, plain old `main` function. Nothing mysterious here.
 fn main()
 {
-	use clap::Parser;
-
 	let arguments = arguments::Arguments::parse();
 	yourprojectname::logger::initialize(arguments.parse_log_level());
 

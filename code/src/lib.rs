@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+// Deny `unsafe` code by default so we will need to explictly
+// allow it later.
+#![deny(unsafe_code)]
 // Clippy lint target one. Enables all lints that are on by
-// default (correctness, suspicious, style, complexity, perf) .
+// default (correctness, suspicious, style, complexity, perf).
 #![deny(clippy::all)]
 // Clippy lint target two. Enables lints which are rather strict
 // or have occasional false positives.

@@ -45,7 +45,7 @@ const BINDINGS_FILE_LOCATION: &str =
 /// 3. add the static library to the arguments for the linker
 fn main() -> Result<(), Box<dyn std::error::Error>>
 {
-	// add information about then to re-compile
+	// add information about when to re-compile
 	println!("cargo:rerun-if-changed={}", FFI_CODE_DIRECTORY);
 	println!("cargo:rerun-if-changed=build.rs");
 

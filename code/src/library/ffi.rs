@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 /// An example function which uses an FFI call.
+#[allow(unsafe_code)]
 pub fn call_from_ffi_safe() { unsafe { ffi_local::call_from_ffi() }; }
 
 /// ## FFI Includes
