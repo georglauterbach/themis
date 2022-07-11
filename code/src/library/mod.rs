@@ -5,6 +5,12 @@
 /// This module handles command lines arguments, utilizing [`clap`].
 pub mod arguments;
 
+/// ## Auxiliary Environment Variables
+///
+/// This module eases working with certain environment variables that are provided at
+/// build-time, such as compiler toolchain information, date, etc.
+pub mod build_environment;
+
 /// ## Foreign Function Interface
 ///
 /// This module contains and makes code available, which was created in another
